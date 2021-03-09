@@ -86,3 +86,7 @@ void Calculator::fortytwo() {
     typeDigit(4);
     typeDigit(2);
 }
+
+void Calculator::negateNum() {
+    num *= -1;
+}

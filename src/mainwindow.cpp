@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent, Calculator* calc) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->btnNum7->setEnabled(false);
 }
 
 MainWindow::~MainWindow()
@@ -103,6 +104,12 @@ void MainWindow::on_btnOpMult_clicked()
 void MainWindow::on_btnOpDiv_clicked()
 {
     onOperationClicked(Operation::Divide);
+}
+
+void MainWindow::on_btnOpNeg_clicked()
+{
+    calc->negateNum();
+    updateDisplay();
 }
 
 void MainWindow::on_btnOpEq_clicked()

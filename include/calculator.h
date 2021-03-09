@@ -28,6 +28,7 @@ public:
     double getNum();
     bool clear();
     void fortytwo();
+    void negateNum();
 };
 
 #endif // CALCULATOR_H

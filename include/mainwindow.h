@@ -34,6 +34,7 @@ private slots:
     void on_btnOpSub_clicked();
     void on_btnOpMult_clicked();
     void on_btnOpDiv_clicked();
+    void on_btnOpNeg_clicked();
     void on_btnOpEq_clicked();
     void on_btnClear_clicked();
     void on_btn42_clicked();
