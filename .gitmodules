@@ -1,0 +1,3 @@
+[submodule "vendor/Qt"]
+	path = vendor/Qt
+	url = git@github.com:qt/qt5.git
