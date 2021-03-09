@@ -1,3 +1,0 @@
-[submodule "vendor/qtbase"]
-	path = vendor/qtbase
-	url = git@github.com:qt/qtbase.git
