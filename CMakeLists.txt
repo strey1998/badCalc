@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.7)
 
-project(badCalc LANGUAGES CXX)
+project(badCalc
+  VERSION 0.0.1
+  LANGUAGES CXX
+)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -10,10 +13,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 set(CMAKE_FIND_DEBUG_MODE TRUE)
-# find_package(QT NAMES Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
-
-# add_subdirectory(vendor)
 
 set(PROJECT_SOURCES
         src/main.cpp
@@ -28,3 +28,27 @@ add_executable(badCalc ${PROJECT_SOURCES})
 
 target_include_directories(badCalc PRIVATE include)
 target_link_libraries(badCalc PRIVATE Qt5::Widgets)
+
+include(GNUInstallDirs)
+
+if(NOT WIN32 AND CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+  set(CMAKE_INSTALL_PREFIX "/opt/WaywardLlama/${PROJECT_NAME}")
+endif()
+
+install(TARGETS badCalc RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+
+if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+  set(CPACK_PACKAGE_NAME                    badCalc)
+  set(CPACK_PACKAGE_VENDOR                  WaywardLlama)
+  set(CPACK_PACKAGE_DESCRIPTION_SUMMARY     "A bad caculator")
+  set(CPACK_PACKAGE_VERSION_MAJOR           ${PROJECT_VERSION_MAJOR})
+  set(CPACK_PACKAGE_VERSION_MINOR           ${PROJECT_VERSION_MINOR})
+  set(CPACK_PACKAGE_VERSION_PATCH           ${PROJECT_VERSION_PATCH})
+  set(CPACK_PACKAGE_INSTALL_DIRECTORY       "badCalc")
+  set(CPACK_VERBATIM_VARIABLES              YES)
+  set(CPACK_PACKAGE_DESCRIPTION             "This calculator is very bad. Why have you installed it?")
+  set(CPACK_GENERATOR                       IFW)
+  include(CPack)
+else()
+  message(WARN "Not processing top-level lists at CPack include")
+endif()
