@@ -99,9 +99,14 @@ target_wrapper.*
 # QtCreator CMake
 CMakeLists.txt.user*
 
-# QtCreator 4.8< compilation database 
+# QtCreator 4.8< compilation database
 
 # QtCreator local machine specific files for imported projects
 *creator.user*
 
 # End of https://www.toptal.com/developers/gitignore/api/cmake,c++,qt
+
+
+# Include the requried Qt dlls for Windows installation (because I don't know a better way to do this)
+# Probably should find a way to copy directly from Qt installation directory
+!dll/**/*
