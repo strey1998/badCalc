@@ -28,6 +28,28 @@ add_executable(badCalc ${PROJECT_SOURCES})
 target_include_directories(badCalc PRIVATE include)
 target_link_libraries(badCalc PRIVATE Qt5::Widgets)
 
+set(REQUIRED_QT_DLLS Qt5Core Qt5Widgets Qt5Gui)
+
+if(WIN32)
+  add_custom_command(TARGET badCalc POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+      "${Qt5_DIR}/../../../plugins/platforms"
+      "$<TARGET_FILE_DIR:badCalc>/platforms/"
+  )
+
+  foreach(DLL_NAME IN LISTS REQUIRED_QT_DLLS)
+    add_custom_command(TARGET badCalc POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${Qt5_DIR}/../../../bin/${DLL_NAME}.dll"
+        $<TARGET_FILE_DIR:badCalc>
+    )
+  endforeach()
+endif()
+
+# message("Message: $<1:Hello> $<0:World>")
+# file(COPY "${Qt5_DIR}/../../../plugins/platforms/" DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>)
+# message(WARNING "BIN: ${CMAKE_CURRENT_BINARY_DIR}")
+
 include(GNUInstallDirs)
 
 if(NOT WIN32 AND CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
@@ -39,10 +61,15 @@ install(TARGETS badCalc
 )
 
 if(WIN32)
-  install(DIRECTORY "${CMAKE_CURRENT_LIST_DIR}/dll/"
+  install(DIRECTORY "${Qt5_DIR}/../../../plugins/platforms"
     DESTINATION ${CMAKE_INSTALL_BINDIR}
     USE_SOURCE_PERMISSIONS
   )
+  foreach(DLL_NAME IN LISTS REQUIRED_QT_DLLS)
+    install(PROGRAMS "${Qt5_DIR}/../../../bin/${DLL_NAME}.dll"
+      DESTINATION ${CMAKE_INSTALL_BINDIR}
+    )
+  endforeach()
 endif()
 
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
