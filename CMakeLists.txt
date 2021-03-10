@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.7)
 
 project(badCalc
-  VERSION 0.0.1
+  VERSION 0.0.2
   LANGUAGES CXX
 )
 
